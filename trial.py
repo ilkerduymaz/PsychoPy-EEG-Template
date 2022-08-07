@@ -40,14 +40,14 @@ class Trial:
         trials.addData('TrialType', self.trl_type)
     
     def sendTrialTriggers(self, exp, win, frame=0):
-        
+
         if exp.send_triggers:
-                       
-            if frame == 0 and type(self.trig.trl_start) == int:
-                win.callOnFlip(exp.p_port.setData, self.trig.trl_start)
-            
-            if frame == self.total_frames and type(self.trig.trl_end) == int:
-                win.callOnFlip(exp.p_port.setData, self.trig.trl_end)
+
+            if frame == 0 and self.trig.trl_start != None:
+                win.callOnFlip(exp.p_port.setData, int(self.trig.trl_start))
+
+            if frame == self.total_frames-1 and self.trig.trl_end != None:
+                win.callOnFlip(exp.p_port.setData, int(self.trig.trl_end))
     
     def draw(self, exp, win, frame=0, keys=[], trials=None, **kwargs):
         self.updateStim(frame=frame)
